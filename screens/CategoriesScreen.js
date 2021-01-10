@@ -14,7 +14,12 @@ const CategoriesScreen = (props) => {
       <TouchableOpacity
         style={styles.gridItem}
         onPress={() => {
-          props.navigation.navigate("CategoryMeals");
+          props.navigation.navigate({
+            routeName: "CategoryMeals",
+            params: {
+              categoryId: itemData.item.id,
+            },
+          });
         }}
       >
         <View>
@@ -24,8 +29,16 @@ const CategoriesScreen = (props) => {
     );
   };
   return (
-    <FlatList data={CATEGORIES} renderItem={rendreGridItem} numColumns={2} />
+    <FlatList
+      keyExtractor={(item, index) => item.id}
+      data={CATEGORIES}
+      renderItem={rendreGridItem}
+      numColumns={2}
+    />
   );
+};
+CategoriesScreen.navigationOptions = {
+  headerTitle: "Meal categories",
 };
 const styles = StyleSheet.create({
   screen: {
